@@ -1,0 +1,11 @@
+Topic #1:
+
+Hey Class!!
+
+I have a personal story to share.  I have two separate Tesla solar panel arrays on my two-story home.  I mention this because I want to highlight the drawbacks of serial connections.  In one of the arrays, I noticed I wasn't getting as much output as I should have.  I knew something was wrong.  I should probably also mention that I have a healthy fear of ladders.  There's no way I was going to get up on my roof to check.
+
+I did the rational thing anyone would do in my position; I called Tesla.  After a couple of months, they finally came out and noticed that in one of the solar panel arrays a cable was never connected.  All the panels after the disconnect weren't generating electricity for my home.
+
+Serial connections are great at producing higher voltage and they typically have a smaller form factor, but these are far more susceptible to failure.  One cable goes out and pretty much the whole thing goes out; similar to Christmas lights.    With parallel connections, you have some level of redundancy but you'll have a diminished output.
+
+-Prof Martinez
