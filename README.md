@@ -2,6 +2,8 @@
 
 ## Week 2 - Wifi Scan Project
 
+In this module, we implemented Wifi scanning capabilities to the project.
+
 ## Week 3 - North/South Traffic Lights
 
 ## Week 4 - East/West Traffic Lights
