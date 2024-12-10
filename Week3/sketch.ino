@@ -2,7 +2,8 @@
   Week 3 - North/South Traffic Lights
   Isaac Martinez
   CEIS 114 - Week 3
-  Nov 11, 2024
+  NOV - DEC 2024
+  Prof I. Martinez
 */
 
 const int green_LED_NS = 13;  // The green LED North/South is wired to ESP32 board pin GPIO13

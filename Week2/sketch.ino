@@ -2,7 +2,7 @@
   ESP32 WiFi Scanning example
   Isaac Martinez
   CEIS114 - Week 2
-  Nov 4, 2024
+  NOV - DEC 2024
 */
 #include "WiFi.h"
 void setup()
