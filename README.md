@@ -1,8 +1,6 @@
 # DeVry-CEIS114
 
-## Week 2 - Wifi Scan Project
-
-In this module, we implemented Wifi scanning capabilities to the project.
+## Week 2 - Wifi Scan
 
 ## Week 3 - North/South Traffic Lights
 
