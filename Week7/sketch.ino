@@ -14,7 +14,7 @@
 
 const char *ssid = "Wokwi-GUEST";          // This is the access point to your wireless network.
 const char *password = "";                 // This is the password to the SSID. For the smart mini router
-const char *mqttServer = "broker.emqx.io"; // This is the free MQTT broker we will use.
+const char *mqttServer = "broker.hivemq.com"; // This is the free MQTT broker we will use.
 
 int port = 1883;   // MQTT brokers listen to port 1883 by default
 String stMac;      // C string used for convenience of comparisons.
