@@ -6,7 +6,6 @@
   Traffic Light Controller with Buzzer and LCD
   Prof I. Martinez
 */
-
 #include <LiquidCrystal_I2C.h>      //lcd
 LiquidCrystal_I2C lcd(0x27, 16, 2); // set the LCD address to 0x3F for a 16 chars and 2-line display
 const int bzr = 32;                 // GPIO32 to connect the Buzzer
@@ -44,45 +43,6 @@ void loop()
   {                                 // if crosswalk button (X-button) pressed
     digitalWrite(yellow_LED1, LOW); // This should turn off the YELLOW LED1
     digitalWrite(green_LED1, LOW);  // This should turn off the GREEN LED1
-    digitalWrite(yellow_LED2, LOW); // This should turn off the YELLOW LED2
-    digitalWrite(green_LED2, LOW);  // This should turn off the GREEN LED2
-    for (int i = 10; i >= 0; i--)
-    {
-      Serial.print(" Count = ");
-      Serial.print(i);
-      Serial.println(" == Walk == ");
-      lcd.setCursor(0, 1); // set the cursor to column 1, line 2
-      // lcd.clear(); // clears the display to print new message
-      lcd.print(" ");               //===================== added
-      lcd.setCursor(0, 1);          // set the cursor to column 1, line 2
-      lcd.print(" == Walk == ");    // Walk characters to the LCD.
-      lcd.print(i);                 // Print the count to the LCD
-      lcd.print(" ");               // ================= add this line ==============
-      digitalWrite(red_LED1, HIGH); // This should turn on the RED LED1
-      digitalWrite(red_LED2, HIGH); // This should turn on the RED LED2 digitalWrite(bzr, HIGH);
-      tone(bzr, 1000);
-      delay(500);
-      digitalWrite(red_LED1, LOW); // This should turn off the RED LED1
-      digitalWrite(red_LED2, LOW); // This should turn off the RED LED2 digitalWrite(bzr, LOW);
-      noTone(bzr);                 // ==== Buzzer OFF =====
-      delay(500);
-    } // End of counter
-    // clears the display to print new message
-    // ===== lcd.clear();
-    lcd.setCursor(0, 1); // set the cursor to column 1, line 2
-    lcd.print(" ");
-  } //
-  else // No Emergency ===
-  {
-    lcd.setCursor(0, 1);           // set the cursor to column 1, line 2
-    lcd.print(" = Do Not Walk ="); // Do Not Walk characters to the LCD.
-    Serial.println(" == Do Not Walk == ");
-    // The next three lines of code turn on the red LED1
-    digitalWrite(red_LED1, HIGH);   // This should turn on the RED LED1
-    digitalWrite(yellow_LED1, LOW); // This should turn off the YELLOW LED1
-    digitalWrite(green_LED1, LOW);  // This should turn off the GREEN LED1
-    delay(1000);                    // Extended time for Red light#1 before the Green of the other side turns
-    // The next three lines of code turn on the red LED2digitalWrite(green_LED1, LOW); // This should turn off the GREEN LED1
     digitalWrite(yellow_LED2, LOW); // This should turn off the YELLOW LED2
     digitalWrite(green_LED2, LOW);  // This should turn off the GREEN LED2
     for (int i = 10; i >= 0; i--)
