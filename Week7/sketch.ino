@@ -14,18 +14,18 @@
 
 const char *ssid = "Wokwi-GUEST";          // This is the access point to your wireless network.
 const char *password = "";                 // This is the password to the SSID. For the smart mini router
-const char *mqttServer = "broker.hivemq.com"; // This is the free MQTT broker we will use.
+const char *mqttServer = "broker.hivemq.com";  // This is the free MQTT broker we will use.
 
 int port = 1883;   // MQTT brokers listen to port 1883 by default
 String stMac;      // C string used for convenience of comparisons.
-char mac[50];      // C char array used to hold the MAC address of your ESP32 microconroller
+char mac[50];      // C char array used to hold the MAC address of your ESP32 microcontroller
 char clientId[50]; // This client ID is used to identify the user accessing the MQTT broker.
 
 // For our test.mosquitto.org broker, we just generate a random user client ID
 WiFiClient espClient;               // instantiate the WiFi client object
 PubSubClient client(espClient);     // instantiate the publish subscribe client object
 LiquidCrystal_I2C lcd(0x27, 16, 2); // set the LCD address to 0x27 for a 16 chars and 2-line display
-// if it does not work then try 0x3F, if both addresses do not work then run the scan code
+// if it does not work, then try 0x3F, if both addresses do not work, then run the scan code
 
 const int redLightNorthSouth = 14;    // The red LED NS is wired to ESP32 board pin GPIO 14
 const int yellowLightNorthSouth = 12; // The yellow LED NS is wired to ESP32 board pin GPIO 12
@@ -40,7 +40,7 @@ const int emergencyBlueLED = 16; // The blue LED is wired to ESP32 board pin GPI
 const int buzzerPin = 32;        // Active Buzzer pin is GPIO 32
 
 int loopCount;      // Variable will keep count of the number of times the light pattern repeats
-int secondsLeft;    // counter to keep track of number of seconds left for crossing intersection
+int secondsLeft;    // counter to keep track of the number of seconds left for crossing the intersection
 int iotControl = 0; // Variable will be used to switch between emergency and normal operations of
 
 // traffic controller
@@ -93,7 +93,7 @@ void wifiConnect()
   WiFi.mode(WIFI_STA);        // set WiFi mode to STA
   WiFi.begin(ssid, password); // connect WiFi using SSID and password
   while (WiFi.status() != WL_CONNECTED)
-  { // As long as WiFi connection is not established
+  { // As long as the WiFi connection is not established
 
     delay(500); // wait half a second
 
@@ -102,17 +102,17 @@ void wifiConnect()
 }
 
 void mqttReconnect()
-{ // If connection to MQTT broker is lost. Call this function
+{ // If connection to the MQTT broker is lost. Call this function
 
   while (!client.connected())
-  { // As long as connection is not established
+  { // As long as the connection is not established
 
     Serial.print("Attempting MQTT connection..."); // Display message attempting MQTT connection
     long r = random(1000);                         // Generate a long integer
     sprintf(clientId, "clientId-%ld", r);          // display client ID
 
     if (client.connect(clientId))
-    {                               // Is connection to MQTT broker is established
+    {                               // Is the connection to MQTT broker established
       Serial.print(clientId);       // Display client ID on serial monitor
       Serial.println(" connected"); // Display connected message on serial monitor
       client.subscribe("LED");      // Subscribe to topic LED.
@@ -135,14 +135,14 @@ void callback(char *topic, byte *message, unsigned int length)
   // messages
   String stMessage; // Create C string object
   for (int i = 0; i < length; i++)
-  {                                // Run a loop that will process all the characters of the MQTT message
+  { // Run a loop that will process all the characters of the MQTT message
     stMessage += (char)message[i]; // Add character to the C string one at a time
   }
 
   if (String(topic) == "LED")
   { // Check if the topic received is LED
     if (stMessage == "ON")
-    {                 // Check if the message is ON
+    { // Check if the message is ON
       iotControl = 1; // Set iotControl variable to high
     }
     else if (stMessage == "OFF")
@@ -160,7 +160,7 @@ void loop()
   }
 
   while (iotControl == 0)
-  { // As long as variable iotControl is low. Run the normal traffic light
+  { // As long as the variable iotControl is low. Run the normal traffic light
 
     lcd.setCursor(0, 1);                   // set the cursor to column 1, line 2
     lcd.print("= Do Not Walk! =");         // display Walk tmessage to the LCD.
@@ -168,7 +168,7 @@ void loop()
     digitalWrite(emergencyBlueLED, LOW);   // This should turn off the Remergency blue LED
 
     if (crossWalkButtonState == 0)
-    {                                           // if crosswalk button is pressed
+    {                                           // if the crosswalk button is pressed
       digitalWrite(yellowLightNorthSouth, LOW); // This should turn off the Yellow LED NS
       digitalWrite(greenLightNorthSouth, LOW);  // This should turn off the Green LED EW
       digitalWrite(yellowLightEastWest, LOW);   // This should turn off the Yellow LED NS
@@ -237,12 +237,12 @@ void loop()
       client.loop(); // Check if new MQTT messages have been published
 
       if (iotControl == 1)
-      { // If iotControl variable is high.
+      { // If the iot Control variable is high.
 
         break; // Break out of the while() loop
       }
 
-      // The next three lines of code turn on the red Yellow LED NS
+      // The next three lines of code turn on the red and Yellow LED NS
       digitalWrite(redLightEastWest, LOW);    // This should turn off the Red LED EW
       digitalWrite(yellowLightEastWest, LOW); // This should turn off the Yellow LED EW
       digitalWrite(greenLightEastWest, HIGH); // This should turn on the Green LED EW
@@ -252,7 +252,7 @@ void loop()
       // The next three lines of client.loop(); // Check if new MQTT messages have been published
 
       if (iotControl == 1)
-      { // If iotControl variable is high.
+      { // If the iot Control variable is high.
 
         break; // Break out of the while() loop
       }
@@ -262,7 +262,7 @@ void loop()
       digitalWrite(yellowLightNorthSouth, LOW); // This should turn off the Yellow LED NS
       digitalWrite(greenLightNorthSouth, LOW);  // This should turn off the Green LED NS
 
-      // The next three lines of code turn on the red Yellow LED NS
+      // The next three lines of code turn on the red and yellow LED NS
       digitalWrite(redLightEastWest, LOW);     // This should turn off the Red LED EW
       digitalWrite(yellowLightEastWest, HIGH); // This should turn on the Yellow LED EW
       digitalWrite(greenLightEastWest, LOW);   // This should turn off the Green LED EW
@@ -272,12 +272,12 @@ void loop()
       client.loop(); // Check if new MQTT messages have been published
 
       if (iotControl == 1)
-      { // If iotControl variable is high.
+      { // If the iot Control variable is high.
 
         break; // Break out of the while() loop
       }
 
-      // The next three lines of code turn on the red Yellow LED NS
+      // The next three lines of code turn on the red and yellow LED NS
       digitalWrite(redLightEastWest, HIGH);   // This should turn on the Red LED NS
       digitalWrite(yellowLightEastWest, LOW); // This should turn off the Yellow LED NS
       digitalWrite(greenLightEastWest, LOW);  // This should turn off the Green LED NS
@@ -287,7 +287,7 @@ void loop()
       client.loop(); // Check if new MQTT messages have been published
 
       if (iotControl == 1)
-      {        // If iotControl variable is high.
+      { // If the iot Control variable is high.
         break; // Break out of the while() loop
       }
       // The next three lines of code turn on the yellow LED NS
@@ -300,7 +300,7 @@ void loop()
       client.loop(); // Check if new MQTT messages have been published
 
       if (iotControl == 1)
-      { // If iotControl variable is high.
+      { // If the iot Control variable is high.
 
         break; // Break out of the while() loop
       }
@@ -310,7 +310,7 @@ void loop()
       digitalWrite(yellowLightNorthSouth, HIGH); // This should turn on the Yellow LED NS
       digitalWrite(greenLightNorthSouth, LOW);   // This should turn off the Green LED NS
 
-      // The next three lines of code turn on the red Yellow LED NS
+      // The next three lines of code turn on the red and yellow LED NS
       digitalWrite(redLightEastWest, HIGH);   // This should turn on the Red LED EW
       digitalWrite(yellowLightEastWest, LOW); // This should turn off the Yellow LED EW
       digitalWrite(greenLightEastWest, LOW);  // This should turn off the Green LED EW
@@ -320,7 +320,7 @@ void loop()
       client.loop(); // Check if new MQTT messages have been published
 
       if (iotControl == 1)
-      {        // If iotControl variable is high.
+      { // If the iot Control variable is high.
         break; // Break out of the while() loop
       }
     }
@@ -355,14 +355,14 @@ void loop()
     client.loop(); // Check if new MQTT messages have been published
 
     if (iotControl == 1)
-    {        // If iotControl variable is high.
+    { // If the iot Control variable is high.
       break; // Break out of the while() loop
     }
   }
   client.loop(); // Check if new MQTT messages have been published one last time
 }
 
-void buttonPressed() // Function to handle any cross walk button presses
+void buttonPressed() // Function to handle any crosswalk button presses
 {
   static unsigned long lastInterruptTime = 0; // Create variable for holding interrupt time
   unsigned long interruptTime = millis();     // Store current time in milli-seconds
